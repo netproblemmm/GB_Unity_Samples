@@ -10,7 +10,7 @@ public class GhostSpawner : MonoBehaviour
     private void Start()
     {
         if (_isSpawned) return;
-        _ghost = GameObject.Find("Ghost");
+        _ghost = GameObject.Find("Ghost_1");
         //Instantiate(_ghost, _startPosition.position + new Vector3(0, _indentY, 0), _startPosition.rotation);
         Instantiate(_ghost, _startPosition.position, _startPosition.rotation);
         _ghost.SetActive(false);
