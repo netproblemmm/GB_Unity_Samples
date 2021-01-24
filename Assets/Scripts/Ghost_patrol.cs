@@ -41,23 +41,21 @@ public class Ghost_patrol : MonoBehaviour
     {
         if (_isInPursuit)
         {
-            //navMeshAgent.SetDestination(_player.transform.position);
+            navMeshAgent.SetDestination(_player.transform.position);
         }
         else
         {
-            var isCurrentDestinationInWaypoints =
+            var isPlayerDestinationInWaypoints =
                 (from t in waypoints
                  where t.position == navMeshAgent.destination
                  select t.position).Count() == 1;
-
-            if (!isCurrentDestinationInWaypoints)
+            
+            if (!isPlayerDestinationInWaypoints)
             {
-                navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-            }
-            else
-            if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
-            {
-                m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+                if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+                {
+                    m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+                }
                 navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
             }
         }
@@ -84,7 +82,8 @@ public class Ghost_patrol : MonoBehaviour
     {
         var distanceFromBotToPlayerSQR = (_player.transform.position - transform.position).sqrMagnitude;
 
-        if (distanceFromBotToPlayerSQR > DistanceForPursuitSQR) return false;
+        if (distanceFromBotToPlayerSQR > DistanceForPursuitSQR)
+            return false;
         return true;
     }
 }
